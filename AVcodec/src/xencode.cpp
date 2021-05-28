@@ -32,7 +32,7 @@ AVCodecContext* XEncode::Create(int codec_id)
         cerr << "avcodec_alloc_context3 failed!" << codec_id << endl;
         return nullptr;
     }
-    //设置参数默认值,帧率！！！
+    //设置参数默认值,帧率
     c->time_base = { 1,100};
     c->pix_fmt = AV_PIX_FMT_YUV420P;
     c->thread_count = 16;

@@ -14,7 +14,7 @@ extern "C"
 int main(int argc, char* argv[])
 {
     string filename = "1920_1080_25_preset";
-    //string filename = "166_192_288.yuv"
+   	//string filename = "166_192_288.yuv"
     AVCodecID codec_id = AV_CODEC_ID_H264;
     if (argc > 1)
     {
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 #endif
     /*打开编码器*/
     en.Open();
-    auto frame = en.CreateFrame();		// linesize = 1920, 960, 960  ？？？默认值？
+    auto frame = en.CreateFrame();		// linesize = 1920, 960, 960
 
     int count = 0;//写入文件的帧数 SPS PPS IDR放在一帧中
     for (int i = 0; i < 200; i++)

@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 	////////////////////////////////////////////////////////////////////////////////////
 	/// 解封装
 	//编码器上下文
-	const char* out_url = "test_mux.mp4";
+	const char* out_url = "test.mp4";
 	//封装上下文
 	AVFormatContext* ec = nullptr;
 	//初始化一个用于输出的AVFormatContext结构体
@@ -109,9 +109,8 @@ int main(int argc, char* argv[])
 	av_dump_format(ec, 0, out_url, 1);	
 
 
-	////////////////////////////////////////////////////////////////////////////////////
-	/// 截取10 ~ 20 秒之间的音频视频 取多不取少
-	// 假定 9 11秒有关键帧 我们取第9秒
+
+	// 截取10 ~ 20 秒之间的音频视频
 	double begin_sec = 10.0;    //截取开始时间
 	double end_sec = 20.0;      //截取结束时间
 	long long begin_pts = 0;	//视频开始
@@ -120,8 +119,6 @@ int main(int argc, char* argv[])
     //换算成pts 换算成输入ic的pts，以视频流为准
     if (vs && vs->time_base.num > 0)
     {
-        //sec /timebase = pts
-        // pts =  sec/(num/den) = sec* (den/num)  
         double t = (double)vs->time_base.den / (double)vs->time_base.num;//den分母/num分子
         begin_pts = begin_sec * t;
         end_pts = end_sec * t;
@@ -187,7 +184,7 @@ int main(int argc, char* argv[])
         pkt.pos = -1;
 
 
-        //写入音视频帧 会清理pkt
+        //写入音视频帧清理pkt
         re = av_interleaved_write_frame(ec,
             &pkt);
         if (re != 0)
